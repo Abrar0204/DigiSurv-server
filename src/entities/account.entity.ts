@@ -1,8 +1,6 @@
-import { Room } from './../../room/entities/room.entity';
-import { Exam } from './../../exam/entities/exam.entity';
+import { Role } from '../dto/create/create-account.dto';
+import { Room } from './room.entity';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-
-type Role = 'student' | 'proctor' | 'admin';
 
 @Entity()
 export class Account {
@@ -12,17 +10,18 @@ export class Account {
   @Column('varchar')
   name: string;
 
-  @Column('varchar')
-  role: Role;
+  @Column('varchar', { unique: true })
+  username: string;
 
-  @Column('varchar')
-  email: string;
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.Student,
+  })
+  role: Role;
 
   @Column({ select: false, type: 'varchar' })
   password: string;
-
-  @ManyToMany(() => Exam)
-  exams: Account[];
 
   @ManyToMany(() => Room)
   rooms: Account[];

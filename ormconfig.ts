@@ -6,6 +6,6 @@ export const config: PostgresConnectionOptions = {
   username: 'postgres',
   password: 'mysecretpassword',
   database: 'test',
-  entities: ['dist/src/**/entities/*.entity{.ts,.js}'],
+  entities: ['dist/src/entities/*.entity{.ts,.js}'],
   synchronize: true,
 };

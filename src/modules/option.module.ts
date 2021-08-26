@@ -1,4 +1,4 @@
-import { Option } from './entities/option.entity';
+import { Option } from '../entities/option.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 

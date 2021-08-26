@@ -1,4 +1,4 @@
-import { Option } from './../../option/entities/option.entity';
+import { Option } from './option.entity';
 import {
   Column,
   Entity,
@@ -6,7 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exam } from 'src/exam/entities/exam.entity';
+import { Exam } from './exam.entity';
 @Entity()
 export class Question {
   @PrimaryGeneratedColumn('uuid')
@@ -15,7 +15,7 @@ export class Question {
   @Column('varchar')
   question: string;
 
-  @OneToMany(() => Option, (option) => option.question)
+  @OneToMany(() => Option, (option) => option.question, { cascade: true })
   options: Option[];
 
   @ManyToOne(() => Exam, (e) => e.questions)

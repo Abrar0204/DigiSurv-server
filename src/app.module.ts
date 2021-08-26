@@ -5,11 +5,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountModule } from './account/account.module';
-import { ExamModule } from './exam/exam.module';
-import { RoomModule } from './room/room.module';
-import { QuestionModule } from './question/question.module';
-import { OptionModule } from './option/option.module';
+import { AccountModule } from './modules/account.module';
+import { ExamModule } from './modules/exam.module';
+import { RoomModule } from './modules/room.module';
+import { QuestionModule } from './modules/question.module';
+import { OptionModule } from './modules/option.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot(config),

@@ -1,4 +1,4 @@
-import { Question } from './entities/question.entity';
+import { Question } from '../entities/question.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 
