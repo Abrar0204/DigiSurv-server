@@ -21,7 +21,7 @@ export class Room {
   @JoinTable()
   proctor: Account;
 
-  @ManyToMany(() => Account, { cascade: true })
+  @ManyToMany(() => Account, (student) => student.rooms, { cascade: true })
   @JoinTable()
   students: Account[];
 

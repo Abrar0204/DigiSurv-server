@@ -1,3 +1,4 @@
+import { queryDto } from 'src/dto/query.dto';
 import { Account } from '../entities/account.entity';
 import { Room } from '../entities/room.entity';
 import { Option } from '../entities/option.entity';
@@ -11,6 +12,7 @@ import {
 import { Repository } from 'typeorm';
 import { CreateExamDto } from '../dto/create/create-exam.dto';
 import { Exam } from '../entities/exam.entity';
+
 @Injectable()
 export class ExamService {
   constructor(
@@ -20,6 +22,12 @@ export class ExamService {
     @InjectRepository(Room) private roomsRepo: Repository<Room>,
     @InjectRepository(Account) private accountsRepo: Repository<Account>,
   ) {}
+
+  async getAll(queries: queryDto): Promise<Exam[]> {
+    return this.examsRepo.find({
+      relations: queries.include ? queries.include.split(',') : [],
+    });
+  }
 
   async create(createExamDto: CreateExamDto): Promise<Exam> {
     try {

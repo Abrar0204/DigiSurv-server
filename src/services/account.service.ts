@@ -1,4 +1,5 @@
-import { CreateAccountDto } from './../dto/create/create-account.dto';
+import { queryDto } from './../dto/query.dto';
+import { CreateAccountDto, Role } from './../dto/create/create-account.dto';
 import { Account } from './../entities/account.entity';
 import {
   Injectable,
@@ -17,8 +18,16 @@ export class AccountService {
     @InjectRepository(Account) private accountsRepo: Repository<Account>,
   ) {}
 
-  async getAllAccounts(): Promise<Account[]> {
-    return this.accountsRepo.find();
+  async getAllAccounts(queries: queryDto): Promise<Account[]> {
+    const unfilteredData = await this.accountsRepo.find();
+    console.log(queries);
+    if (queries.filter?.student) {
+      return unfilteredData.filter((acc) => acc.role === Role.Student);
+    }
+    if (queries.filter?.proctor) {
+      return unfilteredData.filter((acc) => acc.role === Role.Proctor);
+    }
+    return unfilteredData;
   }
 
   async signup(createAccountDto: CreateAccountDto): Promise<Account> {
@@ -40,13 +49,13 @@ export class AccountService {
   async signin(credentials: {
     username: string;
     password: string;
-  }): Promise<{ token: string }> {
+  }): Promise<{ token: string; name: string; role: Role; id: string }> {
     try {
       const acc = await this.accountsRepo.findOneOrFail({
         where: {
           username: credentials.username,
         },
-        select: ['password', 'id', 'role'],
+        select: ['password', 'id', 'role', 'name'],
       });
 
       const passwordMatch = await this.verifyPassword(
@@ -56,7 +65,7 @@ export class AccountService {
 
       if (passwordMatch) {
         const token = await this.newToken(acc);
-        return { token };
+        return { token, name: acc.name, role: acc.role, id: acc.id };
       } else {
         throw new UnauthorizedException();
       }

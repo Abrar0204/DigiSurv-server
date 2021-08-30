@@ -23,6 +23,6 @@ export class Account {
   @Column({ select: false, type: 'varchar' })
   password: string;
 
-  @ManyToMany(() => Room)
+  @ManyToMany(() => Room, (room) => room.students)
   rooms: Account[];
 }
