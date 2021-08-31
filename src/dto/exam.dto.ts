@@ -4,7 +4,7 @@ export class CreateExamDto {
   students: string[];
   questions: {
     question: string;
-    option: {
+    options: {
       option: string;
       isCorrect: boolean;
     }[];

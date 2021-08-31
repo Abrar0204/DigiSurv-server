@@ -1,5 +1,5 @@
 import { queryDto } from './../dto/query.dto';
-import { CreateAccountDto, Role } from './../dto/create/create-account.dto';
+import { CreateAccountDto, Role } from './../dto/account.dto';
 import { Account } from './../entities/account.entity';
 import {
   Injectable,

@@ -5,7 +5,10 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Exam {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
+  pk: number;
+
+  @Column({ type: 'uuid', unique: true, generated: 'uuid' })
   id: string;
 
   @Column({ type: 'varchar' })

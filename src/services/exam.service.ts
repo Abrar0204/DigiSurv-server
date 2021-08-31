@@ -10,7 +10,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { CreateExamDto } from '../dto/create/create-exam.dto';
+import { CreateExamDto } from '../dto/exam.dto';
 import { Exam } from '../entities/exam.entity';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class ExamService {
     try {
       const { proctors, students, startTime, endTime, name, questions } =
         createExamDto;
-
+      console.log(questions);
       if (
         !proctors ||
         !students ||
@@ -58,7 +58,7 @@ export class ExamService {
           options: [],
         });
 
-        q.option.forEach((op) => {
+        q.options.forEach((op) => {
           const optionObj = this.optionsRepo.create({
             option: op.option,
             isCorrect: op.isCorrect,
@@ -80,12 +80,12 @@ export class ExamService {
       for (let proctorIdx = 0; proctorIdx < proctors.length; proctorIdx++) {
         try {
           // Ger Proctor
-          const proctor = await this.accountsRepo.findOneOrFail(
-            proctors[proctorIdx],
-          );
+          const proctor = await this.accountsRepo.findOneOrFail({
+            id: proctors[proctorIdx],
+          });
 
           const room = this.roomsRepo.create({
-            name: `${createExamDto.name}-${proctor.name}`,
+            name: `${createExamDto.name}-Room #${proctorIdx + 1}`,
             proctor,
             students: [],
             startTime,
@@ -98,9 +98,9 @@ export class ExamService {
             studentIdx < noOfStudentsPerRoom;
             studentIdx++
           ) {
-            const student = await this.accountsRepo.findOneOrFail(
-              students[studentIdx + offset],
-            );
+            const student = await this.accountsRepo.findOneOrFail({
+              id: students[studentIdx + offset],
+            });
 
             room.students.push(student);
           }

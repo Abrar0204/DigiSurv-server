@@ -1,5 +1,5 @@
 import { AuthGuard } from './../guards/auth.guard';
-import { CreateAccountDto, Role } from './../dto/create/create-account.dto';
+import { CreateAccountDto, Role } from './../dto/account.dto';
 import {
   Body,
   Controller,

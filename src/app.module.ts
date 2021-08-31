@@ -1,3 +1,4 @@
+import { AnswerModule } from './modules/answer.module';
 import { config } from '../ormconfig';
 import { Module } from '@nestjs/common';
 
@@ -19,6 +20,7 @@ import { OptionModule } from './modules/option.module';
     RoomModule,
     QuestionModule,
     OptionModule,
+    AnswerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

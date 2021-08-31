@@ -11,7 +11,7 @@ export class RoomController {
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string, @Query() q) {
+  getOne(@Param('id') id: string, @Query() q: queryDto) {
     return this.roomService.getOne(id, q);
   }
 }

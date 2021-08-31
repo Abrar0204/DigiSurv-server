@@ -9,7 +9,10 @@ import {
 import { Exam } from './exam.entity';
 @Entity()
 export class Question {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
+  pk: number;
+
+  @Column({ type: 'uuid', unique: true, generated: 'uuid' })
   id: string;
 
   @Column('varchar')

@@ -1,5 +1,5 @@
-import { Role } from './../dto/create/create-account.dto';
-import { CreateExamDto } from '../dto/create/create-exam.dto';
+import { Role } from './../dto/account.dto';
+import { CreateExamDto } from '../dto/exam.dto';
 import {
   Controller,
   Post,

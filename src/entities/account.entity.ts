@@ -1,10 +1,13 @@
-import { Role } from '../dto/create/create-account.dto';
+import { Role } from '../dto/account.dto';
 import { Room } from './room.entity';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Account {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
+  pk: number;
+
+  @Column({ type: 'uuid', unique: true, generated: 'uuid' })
   id: string;
 
   @Column('varchar')
