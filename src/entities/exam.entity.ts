@@ -1,5 +1,6 @@
 import { Room } from './room.entity';
 import { Question } from './question.entity';
+import { Answer } from './answer.entity';
 
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -19,4 +20,7 @@ export class Exam {
 
   @OneToMany(() => Room, (r) => r.exam, { cascade: true })
   rooms: Room[];
+
+  @OneToMany(() => Answer, (a) => a.exam)
+  answers: Answer[];
 }

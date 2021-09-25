@@ -1,10 +1,12 @@
 import { Option } from './option.entity';
+import { Answer } from './answer.entity';
+
 import {
   Column,
   Entity,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Exam } from './exam.entity';
 @Entity()
@@ -23,4 +25,7 @@ export class Question {
 
   @ManyToOne(() => Exam, (e) => e.questions)
   exam: Exam;
+
+  @OneToMany(() => Answer, (a) => a.question)
+  answers: Answer[];
 }

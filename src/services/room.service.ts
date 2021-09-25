@@ -33,7 +33,11 @@ export class RoomService {
     }
   }
 
-  async getOne(id: string, queries: queryDto): Promise<Room> {
+  async getOne(
+    id: string,
+    queries: queryDto,
+    isStudent: boolean,
+  ): Promise<Room> {
     try {
       const room = await this.roomsRepo.findOneOrFail(
         { id },
@@ -41,6 +45,12 @@ export class RoomService {
           relations: queries.include ? queries.include.split(',') : [],
         },
       );
+      if (isStudent) {
+        room.exam.questions = room.exam.questions.map((q) => {
+          q.options = q.options.map((o) => ({ ...o, isCorrect: undefined }));
+          return q;
+        });
+      }
       return room;
     } catch (err) {
       console.log(err.message);

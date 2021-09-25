@@ -21,23 +21,68 @@ export class AnswerService {
       const student = await this.studentsRepo.findOneOrFail({ id: studentId });
       const question = await this.questionsRepo.findOneOrFail(
         { id: createAnswerDto.questionId },
-        { relations: ['options'] },
+        { relations: ['options', 'exam'] },
       );
 
-      const option = question.options.find(
-        (o) => o.id === createAnswerDto.chosenOptionId,
+      const options = question.options.filter((o) =>
+        createAnswerDto.chosenOptionIds.includes(o.id),
       );
+
+      const existingAnswers = await this.answersRepo.findOne({
+        where: {
+          student,
+          question,
+        },
+      });
+      console.log(student, question, options);
+
+      if (existingAnswers) {
+        console.log('existing');
+        existingAnswers.chosenAnswers = options;
+
+        return this.answersRepo.save(existingAnswers);
+      }
 
       const answer = this.answersRepo.create({
         student,
         question,
-        chosenAnswer: option,
+        chosenAnswers: options,
+        exam: question.exam,
       });
 
       return this.answersRepo.save(answer);
     } catch (err) {
       console.log(err.message);
       throw new NotFoundException();
+    }
+  }
+
+  async getAnswerByExamAndQuestion(sId, eId): Promise<Answer[] | null> {
+    try {
+      const answers = await this.answersRepo.find({
+        relations: [
+          'student',
+          'exam',
+          'question',
+          'question.options',
+          'chosenAnswers',
+        ],
+        where: {
+          student: { id: sId },
+          // question: { id: qId },
+          exam: { id: eId },
+        },
+      });
+      answers.forEach((a) => {
+        a.chosenAnswers = a.chosenAnswers.map((o) => ({
+          ...o,
+          isCorrect: undefined,
+        }));
+      });
+      return answers;
+    } catch (err) {
+      console.log(err.message);
+      return null;
     }
   }
 }
