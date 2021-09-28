@@ -8,5 +8,10 @@ export const config: PostgresConnectionOptions = {
   database: process.env.POSTGRES_DATABASE || 'test',
   entities: ['dist/src/entities/*.entity{.ts,.js}'],
   ssl: true,
-  synchronize: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
+  // synchronize: true,
 };
