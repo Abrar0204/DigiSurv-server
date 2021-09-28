@@ -5,7 +5,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 import * as morgan from 'morgan';
-// import { PeerServer } from 'peer';
+import { PeerServer } from 'peer';
 const whitelist = ['http://localhost:3000', 'https://digi-surv-ui.vercel.app'];
 
 async function bootstrap() {
@@ -24,7 +24,7 @@ async function bootstrap() {
   });
   app.use(morgan('dev'));
 
-  // PeerServer({ port: 5500, path: '/' });
+  PeerServer({ port: 5500, path: '/' });
   await app.listen(process.env.PORT || 5000);
 }
 bootstrap();
