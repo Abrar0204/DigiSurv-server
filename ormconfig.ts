@@ -13,5 +13,5 @@ export const config: PostgresConnectionOptions = {
       rejectUnauthorized: false,
     },
   },
-  // synchronize: true,
+  synchronize: true,
 };
