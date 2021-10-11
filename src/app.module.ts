@@ -1,3 +1,4 @@
+import { CallModule } from './modules/call.module';
 import { AnswerModule } from './modules/answer.module';
 import { config } from '../ormconfig';
 import { Module } from '@nestjs/common';
@@ -11,7 +12,6 @@ import { ExamModule } from './modules/exam.module';
 import { RoomModule } from './modules/room.module';
 import { QuestionModule } from './modules/question.module';
 import { OptionModule } from './modules/option.module';
-
 @Module({
   imports: [
     TypeOrmModule.forRoot(config),
@@ -21,6 +21,7 @@ import { OptionModule } from './modules/option.module';
     QuestionModule,
     OptionModule,
     AnswerModule,
+    CallModule,
   ],
   controllers: [AppController],
   providers: [AppService],

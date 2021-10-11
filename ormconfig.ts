@@ -7,11 +7,11 @@ export const config: PostgresConnectionOptions = {
   password: process.env.POSTGRES_PASSWORD || 'mysecretpassword',
   database: process.env.POSTGRES_DATABASE || 'test',
   entities: ['dist/src/entities/*.entity{.ts,.js}'],
-  ssl: true,
-  extra: {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  },
+  // ssl: true,
+  // extra: {
+  //   ssl: {
+  //     rejectUnauthorized: false,
+  //   },
+  // },
   synchronize: true,
 };
