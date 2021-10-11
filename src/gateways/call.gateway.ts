@@ -11,11 +11,7 @@ import { Socket, Server } from 'socket.io';
 
 const options = {
   cors: {
-    origin: [
-      'http://localhost:3000',
-      'https://digi-surv-ui.vercel.app',
-      'http://ff42-2401-4900-230b-e255-25d9-f724-63a0-6f32.ngrok.io',
-    ],
+    origin: ['http://localhost:3000', 'https://digi-surv-ui.vercel.app'],
     methods: ['GET', 'POST'],
     credentials: true,
   },

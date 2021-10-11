@@ -5,11 +5,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 import * as morgan from 'morgan';
-const whitelist = [
-  'http://localhost:3000',
-  'https://digi-surv-ui.vercel.app',
-  'http://ff42-2401-4900-230b-e255-25d9-f724-63a0-6f32.ngrok.io',
-];
+const whitelist = ['http://localhost:3000', 'https://digi-surv-ui.vercel.app'];
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
