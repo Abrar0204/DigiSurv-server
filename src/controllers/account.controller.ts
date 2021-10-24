@@ -81,15 +81,15 @@ export class AccountController {
   }
 
   @Post('signup')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   createAccount(
     @Request() req,
     @Body()
     createAccountDto: CreateAccountDto,
   ) {
-    // if (req.account.role !== Role.Admin) {
-    //   throw new UnauthorizedException();
-    // }
+    if (req.account.role !== Role.Admin) {
+      throw new UnauthorizedException();
+    }
     return this.accountService.signup(createAccountDto);
   }
 
